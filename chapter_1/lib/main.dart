@@ -52,8 +52,6 @@ class _HomePageState extends State<HomePage>
       // a pi is equal 180 degree
       // two pi is equal 360 degree
     ).animate(_controller);
-
-    _controller.repeat();
   }
 
   @override
