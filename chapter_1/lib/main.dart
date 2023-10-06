@@ -52,6 +52,8 @@ class _HomePageState extends State<HomePage>
       // a pi is equal 180 degree
       // two pi is equal 360 degree
     ).animate(_controller);
+
+    _controller.repeat();
   }
 
   @override
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage>
           builder: (context, _) {
             return Transform(
               // alignment: Alignment.center,
-              origin: const Offset(50, 50),
+              origin: const Offset(50, 50), // pivot point
               // only use origin if you have a specific origin that's
               // not part of alignment specification
               //
@@ -94,7 +96,7 @@ class _HomePageState extends State<HomePage>
               // Matrix4.identity is same as Offset.zero
               // It also means no rotation, no translation, just
               // reset the matrix.
-              transform: Matrix4.identity()..rotateZ(_animation.value),
+              transform: Matrix4.identity()..rotateY(_animation.value),
               child: Container(
                 width: 100,
                 height: 100,
