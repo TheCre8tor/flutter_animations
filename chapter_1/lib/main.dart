@@ -3,16 +3,17 @@ import 'dart:math' show pi;
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -42,8 +43,7 @@ class _HomePageState extends State<HomePage>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
-    )
-      ..repeat();
+    )..repeat();
 
     // Tween means an animation that is between two things
     _animation = Tween<double>(
@@ -75,6 +75,31 @@ class _HomePageState extends State<HomePage>
    * */
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Transform(
+          alignment: Alignment.center,
+          // it rotate clockwise because the canvas is
+          // flipped on the X axis.
+          transform: Matrix4.identity()..rotateZ(0.0),
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
