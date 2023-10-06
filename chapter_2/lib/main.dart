@@ -27,6 +27,12 @@ class App extends StatelessWidget {
   }
 }
 
+extension on VoidCallback {
+  Future<void> delayed(Duration duration) async {
+    await Future.delayed(duration, this);
+  }
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -71,11 +77,9 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1), () {
-      _counterClockwiseRotationController
-        ..reset()
-        ..forward();
-    });
+    _counterClockwiseRotationController
+      ..reset()
+      ..forward.delayed(const Duration(seconds: 1));
 
     return Scaffold(
       body: SafeArea(
@@ -83,7 +87,7 @@ class _HomePageState extends State<HomePage>
           children: [
             AnimatedBuilder(
               animation: _counterClockwiseRotationAnimation,
-              builder: (context, widget) {
+              builder: (context, child) {
                 return Transform(
                   alignment: Alignment.center,
                   transform: Matrix4.identity()
