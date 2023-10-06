@@ -77,27 +77,42 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Transform(
-          alignment: Alignment.center,
-          // it rotate clockwise because the canvas is
-          // flipped on the X axis.
-          transform: Matrix4.identity()..rotateZ(0.0),
-          child: Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                )
-              ],
-            ),
-          ),
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) {
+            return Transform(
+              // alignment: Alignment.center,
+              origin: const Offset(50, 50),
+              // only use origin if you have a specific origin that's
+              // not part of alignment specification
+              //
+              // ------------
+              //
+              // transform rotate clockwise because the canvas is
+              // flipped on the X axis.
+
+              // Matrix4.identity is same as Offset.zero
+              // It also means no rotation, no translation, just
+              // reset the matrix.
+              transform: Matrix4.identity()..rotateZ(_animation.value),
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
